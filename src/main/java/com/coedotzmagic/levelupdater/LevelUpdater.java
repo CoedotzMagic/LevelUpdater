@@ -3,8 +3,6 @@ package com.coedotzmagic.levelupdater;
 import com.coedotzmagic.levelupdater.utils.Updater;
 
 public class LevelUpdater extends Updater {
-    private String errorTitle = "Error!";
-    private String errorCurrentVer = "You must set Current Version of this App!";
 
     public void CheckForUpdate() {
         if (currentVersion == null) {
@@ -12,14 +10,22 @@ public class LevelUpdater extends Updater {
             return;
         }
 
-        if (updateURL == null) {
-            showDialog("", errorTitle, true);
+        if (checkUpdateURL == null) {
+            showDialog(errorCheckUpdateUrl, errorTitle, true);
             return;
         }
 
-        if (downloadUrl == null) {
-            showDialog("", errorTitle, true);
-            return;
+        if (downloadFileUrl == null) {
+            if (activeWarn) showDialog(errorDownloadFileUrl, errorTitle, true);
+            if (isLockout) return;
+            isDirectDownload = false;
+            activeWarn = true;
+            isLockout = true;
+        }
+
+        if (downloadPageUrl == null) {
+            if (activeWarn) showDialog(errorDownloadPageUrl, errorTitle, true);
+            if (isLockout) return;
         }
 
         checkForUpdate();
@@ -29,16 +35,19 @@ public class LevelUpdater extends Updater {
         this.currentVersion = currentVersion;
     }
 
-    public void SetUpdateURL(String updateURL) {
-        this.updateURL = updateURL;
+    public void SetCheckUpdateURL(String checkUpdateURL) {
+        this.checkUpdateURL = checkUpdateURL;
     }
 
     public void SetIsDirectDownload(boolean isDirectDownload) {
         this.isDirectDownload = isDirectDownload;
     }
 
-    public void SetDownloadUrl(String downloadUrl) {
-        this.downloadUrl = downloadUrl;
+    public void SetDownloadFileUrl(String downloadFileUrl) {
+        this.downloadFileUrl = downloadFileUrl;
     }
 
+    public void SetDownloadPageUrl(String downloadPageUrl) {
+        this.downloadPageUrl = downloadPageUrl;
+    }
 }
