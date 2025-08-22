@@ -33,7 +33,7 @@ public class Updater extends Dialog {
                 showDialog("A new version (" + latestVersion + ") is available!", "Update Available", false);
 
                 if (isDirectDownload) new FileChooser(downloadFileUrl);
-                else Desktop.getDesktop().browse(new URI(downloadFileUrl));
+                else Desktop.getDesktop().browse(new URI(downloadPageUrl));
             } else {
                 showDialog("You are using the latest version.", "No Updates", false);
             }
