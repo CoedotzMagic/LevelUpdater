@@ -7,21 +7,33 @@ import java.net.URI;
 import java.net.URL;
 
 public class Updater extends Dialog {
-    protected String currentVersion = "1.0.0";
-    protected String updateURL = "https://coedotzmagic.com/latest-version.txt";
-    protected String downloadUrl = "https://coedotzmagic.com/download";
+    protected Boolean isLockout = false;
+    protected Boolean activeWarn =  false;
+
+    protected String currentVersion = null;
+    protected String checkUpdateURL = null;
+    protected String downloadPageUrl = null;
+    protected String downloadFileUrl = null;
     protected boolean isDirectDownload = true;
+
+    protected String errorTitle = "Error!";
+    protected String errorCurrentVer = "You must set Current Version of this App!";
+    protected String errorCheckUpdateUrl = "You must set Check Update URL!";
+    protected String errorDownloadPageUrl = "You must set Download Page URL!";
+    protected String errorDownloadFileUrl = "You must set Download File URL!";
 
     protected void checkForUpdate() {
         try {
-            URL url = new URL(updateURL);
+            URL url = new URL(checkUpdateURL);
             BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
             String latestVersion = in.readLine().trim();
             in.close();
 
             if (isNewerVersion(latestVersion, currentVersion)) {
                 showDialog("A new version (" + latestVersion + ") is available!", "Update Available", false);
-                //Desktop.getDesktop().browse(new URI(downloadUrl));
+
+                if (isDirectDownload) new FileChooser(downloadFileUrl);
+                else Desktop.getDesktop().browse(new URI(downloadFileUrl));
             } else {
                 showDialog("You are using the latest version.", "No Updates", false);
             }
