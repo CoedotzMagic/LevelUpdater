@@ -10,4 +10,18 @@ public class Dialog extends JFrame {
         dialog.setVisible(true);
     }
 
+    protected static boolean showDialogOKCancel(String message, String title) {
+        String[] options = {"Download", "Later"};
+        int result = JOptionPane.showOptionDialog(
+                null,
+                message,
+                title,
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.INFORMATION_MESSAGE,
+                null,
+                options,
+                options[0]
+        );
+        return result == 0; // true if "Download" clicked
+    }
 }
