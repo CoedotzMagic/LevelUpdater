@@ -30,10 +30,10 @@ public class Updater extends Dialog {
             in.close();
 
             if (isNewerVersion(latestVersion, currentVersion)) {
-                showDialog("A new version (" + latestVersion + ") is available!", "Update Available", false);
-
-                if (isDirectDownload) new FileChooser(downloadFileUrl);
-                else Desktop.getDesktop().browse(new URI(downloadPageUrl));
+                if (showDialogOKCancel("A new version (" + latestVersion + ") is available!", "Update Available")) {
+                    if (isDirectDownload) new FileChooser(downloadFileUrl);
+                    else Desktop.getDesktop().browse(new URI(downloadPageUrl));
+                }
             } else {
                 showDialog("You are using the latest version.", "No Updates", false);
             }
