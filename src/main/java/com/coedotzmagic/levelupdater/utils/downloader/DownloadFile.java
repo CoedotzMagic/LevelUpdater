@@ -26,7 +26,7 @@ public class DownloadFile extends JFrame {
             SwingUtilities.invokeLater(() -> {
                 JOptionPane.showMessageDialog(DownloadFile.this,
                         finalMessage,
-                        "Download Document",
+                        "LevelUpdater",
                         finalSuccess ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.ERROR_MESSAGE);
             });
         }).start();
