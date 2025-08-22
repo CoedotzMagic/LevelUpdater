@@ -9,7 +9,7 @@ import java.net.URL;
 
 public class BackgroundProcess {
 
-    public boolean downloadFileFromURL(String fileURL, String savePath, DownloadProgressListener listener) throws IOException {
+    public boolean downloadFileFromURL(String fileURL, String savePath, DownloadProgressListener listener) throws IOException, InterruptedException {
         URL url = new URL(fileURL);
         HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
         httpURLConnection.setRequestMethod("GET");
@@ -33,8 +33,6 @@ public class BackgroundProcess {
                     listener.onProgress(downloaded, totalSize);
                 }
             }
-        } catch (IOException e) {
-            throw new IOException("Failed to download file: " + e.getMessage());
         }
 
         return true;
