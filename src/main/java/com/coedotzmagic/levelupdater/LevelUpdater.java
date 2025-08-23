@@ -15,17 +15,31 @@ public class LevelUpdater extends Updater {
             return;
         }
 
-        if (downloadFileUrl == null ||  downloadFileUrl.isEmpty()) {
-            if (activeWarn) showDialog(errorDownloadFileUrl, errorTitle, true);
-            if (isLockout) return;
-            isDirectDownload = false;
-            activeWarn = true;
-            isLockout = true;
+        if (downloadPageUrl == null ||  downloadPageUrl.isEmpty()) {
+            if (!isDirectDownload) {
+                if (downloadFileUrl != null && !downloadFileUrl.equalsIgnoreCase("")) {
+                    isDirectDownload = true;
+                } else {
+                    showDialog(errorDownloadPageUrl, errorTitle, true);
+                    return;
+                }
+            } else {
+                if (activeWarn) showDialog(errorDownloadPageUrl, errorTitle, true);
+                if (isLockout) return;
+                activeWarn = true;
+                isLockout = true;
+            }
         }
 
-        if (downloadPageUrl == null || downloadPageUrl.isEmpty()) {
-            if (activeWarn) showDialog(errorDownloadPageUrl, errorTitle, true);
-            if (isLockout) return;
+        if (downloadFileUrl == null || downloadFileUrl.isEmpty()) {
+            if (isDirectDownload) {
+                if (downloadPageUrl != null && !downloadPageUrl.equalsIgnoreCase("")) {
+                    isDirectDownload = false;
+                } else {
+                    if (activeWarn) showDialog(errorDownloadFileUrl, errorTitle, true);
+                    if (isLockout) return;
+                }
+            }
         }
 
         checkForUpdate();
