@@ -5,17 +5,17 @@ import com.coedotzmagic.levelupdater.utils.Updater;
 public class LevelUpdater extends Updater {
 
     public void CheckForUpdate() {
-        if (currentVersion == null) {
+        if (currentVersion == null || currentVersion.isEmpty()) {
             showDialog(errorCurrentVer, errorTitle, true);
             return;
         }
 
-        if (checkUpdateURL == null) {
+        if (checkUpdateURL == null || checkUpdateURL.isEmpty()) {
             showDialog(errorCheckUpdateUrl, errorTitle, true);
             return;
         }
 
-        if (downloadFileUrl == null) {
+        if (downloadFileUrl == null ||  downloadFileUrl.isEmpty()) {
             if (activeWarn) showDialog(errorDownloadFileUrl, errorTitle, true);
             if (isLockout) return;
             isDirectDownload = false;
@@ -23,7 +23,7 @@ public class LevelUpdater extends Updater {
             isLockout = true;
         }
 
-        if (downloadPageUrl == null) {
+        if (downloadPageUrl == null || downloadPageUrl.isEmpty()) {
             if (activeWarn) showDialog(errorDownloadPageUrl, errorTitle, true);
             if (isLockout) return;
         }
